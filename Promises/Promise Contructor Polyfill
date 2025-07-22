@@ -1,0 +1,43 @@
+
+// recreated the promise function to understand how would It work might not be the correct way.
+function MyPromise(cb) {
+  this.state = "pending";
+  this.result = undefined;
+    const res = (val) => {
+    if (this.state === "pending") {
+      this.state = "fulfilled";
+      this.result = val;
+    }
+  };
+
+  const rej = (val) => {
+    if (this.state === "pending") {
+      this.state = "rejected";
+      this.result = val;
+    }
+  };
+
+  try {
+    cb(res, rej);
+  } catch (err) {
+    rej(err);
+  }
+  cb(res,rej);
+}
+
+
+ 
+
+
+const promise = new MyPromise((res, rej)=>{
+  setTimeout(function() {
+    res("Aaron");
+  }, 5000);
+});
+
+console.log(promise)
+  setTimeout(function() {
+    console.log(promise)
+  }, 7000);
+
+
